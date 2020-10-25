@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Password Generator">
+    <meta name="author" content="Mlendea Horațiu">
+    <meta name="keywords" content="Password,Generator">
+
+    <title>Password Generator</title>
+</head>
+
+<body class="body">
+  <div style="width: 100%">
+    <span>Length:</span>
+    <input id="length" type="number" style="width: 5%" value="32" />
+    <span>Password:</span>
+    <input id="password" type="text" style="width: 80%" />
+  </div>
+  <br>
+  <button id="generate" onClick="generatePassword()">Generate</button>   
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
