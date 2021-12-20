@@ -1,14 +1,41 @@
+var digits = "0123456789"
 var lowercase = "abcdefghijklmnopqrstuvwxyz"
 var uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-var digits = "0123456789"
-var punctuation = "()[]{}.:,:<>/|\\'\"?+=-_`~!@#$%^&* "
-
-var characters = lowercase + uppercase + digits + punctuation;
-var charactersCount = characters.length;
+var symbols = "?-*%!@#_$.:;/"
+var brackets = "[]{}()<>"
+var others = ",|\\'\"+=`~^& "
 
 function generatePassword() {
     var length = $("#length").val();
     var password = '';
+
+    var characters = ''; digits + lowercase + uppercase + symbols + brackets + others;
+    
+    if ($("#digitsCheckbox").is(':checked')) {
+        characters += digits;
+    }
+
+    if ($("#lowercaseLettersCheckbox").is(':checked')) {
+        characters += lowercase;
+    }
+
+    if ($("#uppercaseLettersCheckbox").is(':checked')) {
+        characters += uppercase;
+    }
+
+    if ($("#symbolsCheckbox").is(':checked')) {
+        characters += symbols;
+    }
+
+    if ($("#bracketsCheckbox").is(':checked')) {
+        characters += brackets;
+    }
+
+    if ($("#othersCheckbox").is(':checked')) {
+        characters += others;
+    }
+    
+    var charactersCount = characters.length;
 
     for (var i = 0; i < length; i++) {
         var randomPos = Math.floor(Math.random() * charactersCount);
