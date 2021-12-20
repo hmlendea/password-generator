@@ -1,9 +1,11 @@
+var digits = "0123456789"
 var lowercase = "abcdefghijklmnopqrstuvwxyz"
 var uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-var digits = "0123456789"
-var punctuation = "()[]{}.:,:<>/|\\'\"?+=-_`~!@#$%^&* "
+var symbols = "?-*%!@#_$.:;/"
+var brackets = "[]{}()<>"
+var others = ",|\\'\"+=`~^& "
 
-var characters = lowercase + uppercase + digits + punctuation;
+var characters = digits + lowercase + uppercase + symbols + brackets + others;
 var charactersCount = characters.length;
 
 function generatePassword() {
