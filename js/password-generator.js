@@ -5,12 +5,37 @@ var symbols = "?-*%!@#_$.:;/"
 var brackets = "[]{}()<>"
 var others = ",|\\'\"+=`~^& "
 
-var characters = digits + lowercase + uppercase + symbols + brackets + others;
-var charactersCount = characters.length;
-
 function generatePassword() {
     var length = $("#length").val();
     var password = '';
+
+    var characters = ''; digits + lowercase + uppercase + symbols + brackets + others;
+    
+    if ($("#digitsCheckbox").is(':checked')) {
+        characters += digits;
+    }
+
+    if ($("#lowercaseLettersCheckbox").is(':checked')) {
+        characters += lowercase;
+    }
+
+    if ($("#uppercaseLettersCheckbox").is(':checked')) {
+        characters += uppercase;
+    }
+
+    if ($("#symbolsCheckbox").is(':checked')) {
+        characters += symbols;
+    }
+
+    if ($("#bracketsCheckbox").is(':checked')) {
+        characters += brackets;
+    }
+
+    if ($("#othersCheckbox").is(':checked')) {
+        characters += others;
+    }
+    
+    var charactersCount = characters.length;
 
     for (var i = 0; i < length; i++) {
         var randomPos = Math.floor(Math.random() * charactersCount);
