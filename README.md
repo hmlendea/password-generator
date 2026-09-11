@@ -42,7 +42,7 @@ Try the hosted application on [GitHub Pages](https://hmlendea.github.io/password
 ## 🚀 Usage
 
 1. Open the [hosted application](https://hmlendea.github.io/password-generator/index.html).
-2. Enter the desired password length; the default is `48`.
+2. Enter the desired password length; the default is `32`.
 3. Enable or disable the character classes.
 4. Select **Generate**.
 5. Select **Copy** to place the displayed password on the system clipboard.
