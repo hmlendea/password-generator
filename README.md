@@ -51,7 +51,7 @@ Try the hosted application on [GitHub Pages](https://hmlendea.github.io/password
 
 - Password generation uses JavaScript `Math.random()`, which is not a cryptographic random source.
 - The page does not validate the requested length or prevent all character classes from being disabled.
-- The copy action uses the browser's legacy `document.execCommand("copy")` API and provides no success or failure message.
+- The copy action uses `navigator.clipboard.writeText()` in secure contexts and falls back to the browser's legacy `document.execCommand("copy")` API; it provides no success or failure message.
 - jQuery, Bootstrap, Start Bootstrap, Font Awesome, and the favicon are loaded from external URLs, so external asset availability can affect the page.
 - Generated passwords are not stored by the application, but copying places them under the control of the operating system clipboard.
 
@@ -76,7 +76,7 @@ The entry point is [index.html](index.html).
 | Bootstrap 5.3.0 | CDN stylesheet and bundle | Layout, form, navigation, and responsive presentation | For the intended styling |
 | Start Bootstrap Freelancer assets | GitHub Pages-hosted stylesheet and script | Page styling and supporting page behaviour | For the intended styling |
 | Font Awesome 6.4.0 | CDN script | Icons in the navigation and controls | No |
-| Browser clipboard | Browser support for `document.execCommand("copy")` | Copy the displayed password | Only for the Copy action |
+| Browser clipboard | `navigator.clipboard.writeText()` in secure contexts, with a legacy fallback | Copy the displayed password | Only for the Copy action |
 
 ## 🛡️ Privacy and Data
 

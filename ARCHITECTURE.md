@@ -52,7 +52,7 @@ flowchart LR
 The principal external boundaries are:
 - **User and browser:** The user interacts with form controls and action elements; the browser supplies the DOM, JavaScript runtime, selection APIs, and clipboard command.
 - **External asset providers:** The page loads jQuery, Bootstrap, Font Awesome, Start Bootstrap styles/scripts, and a favicon from URLs declared in `index.html`; ownership and availability remain external to this repository.
-- **System clipboard:** `copyPassword()` requests a copy through the browser's legacy `document.execCommand("copy")` API; the page does not persist clipboard contents.
+- **System clipboard:** `copyPassword()` uses `navigator.clipboard.writeText()` in secure contexts and falls back to the browser's legacy `document.execCommand("copy")` API; the page does not persist clipboard contents.
 
 ## 🏗️ Architectural Style
 
@@ -181,7 +181,7 @@ flowchart LR
 | DOM controls | Inbound | IDs `length`, `digitsCheckbox`, `lowercaseLettersCheckbox`, `uppercaseLettersCheckbox`, `symbolsCheckbox`, `symbolsExtraCheckbox`, `bracketsCheckbox`, and `othersCheckbox` | `index.html` and `password-generator.js` jointly | Missing or renamed elements can produce invalid reads or runtime errors; no explicit translation exists |
 | Password output field | Outbound | `#password` input value | `password-generator.js` | The value is updated in place; no persistence or server response is expected |
 | Inline action handlers | Inbound | `generatePassword()` and `copyPassword()` global function names | `password-generator.js` and `index.html` | Renaming without updating markup prevents activation; no fallback is implemented |
-| Clipboard API | Outbound | `document.execCommand("copy")` after selecting `#password` | Browser and `copyPassword()` | The return value is not inspected and failures are silent |
+| Clipboard API | Outbound | `navigator.clipboard.writeText()` in secure contexts, with `document.execCommand("copy")` as a fallback | Browser and `copyPassword()` | Clipboard promise rejection falls back to selection and the legacy command; final failure is silent |
 | CDN asset loading | Outbound | Script and stylesheet URLs declared in `index.html` | `index.html` and external providers | Asset unavailability can impair layout, icons, jQuery calls, or page scripts; no local fallback exists |
 
 ## 🔀 Key Flows
@@ -214,11 +214,11 @@ sequenceDiagram
     participant Browser
 
     User->>DOM: Click Copy
-    DOM->>Browser: Select #password and request execCommand("copy")
+    DOM->>Browser: Request clipboard write for #password
     Browser-->>User: Clipboard state is changed or remains unchanged
 ```
 
-The copy flow is synchronous and does not display success or failure feedback. It depends on browser support and permissions for the deprecated copy command.
+The modern copy flow is asynchronous and falls back to the legacy selection command when the Clipboard API is unavailable or rejects the request. It does not display success or failure feedback and remains dependent on browser support and permissions.
 
 ## ⚙️ Password Character Selection
 
@@ -232,7 +232,7 @@ Password generation occurs locally in the browser and the repository contains no
 
 ### Error Handling
 
-There is no explicit validation or error translation layer. An empty or invalid character pool can cause the random-position calculation to produce an unusable result, and invalid length values are delegated to JavaScript loop semantics. Clipboard failure is silent because the return value from `document.execCommand("copy")` is not checked. External asset failures are likewise handled by the browser and may leave the page partially functional.
+There is no explicit validation or error translation layer. An empty or invalid character pool can cause the random-position calculation to produce an unusable result, and invalid length values are delegated to JavaScript loop semantics. Clipboard promise rejection falls back to the legacy copy command; any final clipboard failure is silent. External asset failures are likewise handled by the browser and may leave the page partially functional.
 
 ## 🧭 Dependency Direction and Rules
 
@@ -300,7 +300,7 @@ Execute the principal automated verification with:
 - **Non-cryptographic randomness:** `Math.random()` does not provide a cryptographic randomness guarantee.
 - **Implicit validation:** Input and character-pool validation are absent; edge-case behaviour follows browser and JavaScript semantics.
 - **External runtime assets:** Core presentation and jQuery-dependent behaviour rely on third-party URLs declared in the page.
-- **Legacy clipboard mechanism:** Copying uses `document.execCommand("copy")`, whose support and permission behaviour depend on the browser.
+- **Browser clipboard dependency:** Copying prefers `navigator.clipboard.writeText()` and falls back to `document.execCommand("copy")`; both support and permission behaviour depend on the browser.
 - **Global DOM coupling:** Inline handlers and fixed element IDs couple markup changes directly to client logic.
 
 ## 🗺️ Source Map

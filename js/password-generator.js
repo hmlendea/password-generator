@@ -52,8 +52,21 @@ function generatePassword() {
 
 function copyPassword() {
     var copyText = document.getElementById("password");
+
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(copyText.value).catch(function () {
+            fallbackCopy(copyText);
+        });
+        return;
+    }
+
+    fallbackCopy(copyText);
+}
+
+function fallbackCopy(copyText) {
+    copyText.focus();
     copyText.select();
-    copyText.setSelectionRange(0, 99999);
+    copyText.setSelectionRange(0, copyText.value.length);
 
     document.execCommand("copy");
 }
