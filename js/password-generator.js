@@ -1,16 +1,16 @@
 var digits = "0123456789"
 var lowercase = "abcdefghijklmnopqrstuvwxyz"
 var uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-var symbols = "?-*%!@#_$.:;/"
+var symbols = "?-*%!@#_$/"
 var symbolsExtra = "€¢£¥₦§®©™∑∆µπ"
 var brackets = "[]{}()<>"
-var others = ",|\\'\"+=`~^& "
+var punctuation = ",|\\'\"+=`~^& .:;"
 
 function generatePassword() {
     var length = $("#length").val();
     var password = '';
 
-    var characters = ''; digits + lowercase + uppercase + symbols + symbolsExtra + brackets + others;
+    var characters = '';
 
     if ($("#digitsCheckbox").is(':checked')) {
         characters += digits;
@@ -36,8 +36,8 @@ function generatePassword() {
         characters += brackets;
     }
 
-    if ($("#othersCheckbox").is(':checked')) {
-        characters += others;
+    if ($("#punctuationCheckbox").is(':checked')) {
+        characters += punctuation;
     }
 
     var charactersCount = characters.length;
