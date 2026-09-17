@@ -35,7 +35,7 @@ Try the hosted application on [GitHub Pages](https://hmlendea.github.io/password
 ## ✨ Capabilities
 
 - Generate passwords with a configurable length.
-- Select digits, lowercase letters, uppercase letters, standard symbols, extra symbols, brackets, and other characters.
+- Select digits, lowercase letters, uppercase letters, standard symbols, extra symbols, brackets, and punctuation.
 - Copy the generated password to the system clipboard.
 - Use the application directly in a browser without an account or server-side setup.
 

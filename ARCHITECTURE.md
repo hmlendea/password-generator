@@ -178,7 +178,7 @@ flowchart LR
 
 | Interface or Integration | Direction | Contract | Owner | Failure Semantics |
 |--------------------------|-----------|----------|-------|-------------------|
-| DOM controls | Inbound | IDs `length`, `digitsCheckbox`, `lowercaseLettersCheckbox`, `uppercaseLettersCheckbox`, `symbolsCheckbox`, `symbolsExtraCheckbox`, `bracketsCheckbox`, and `othersCheckbox` | `index.html` and `password-generator.js` jointly | Missing or renamed elements can produce invalid reads or runtime errors; no explicit translation exists |
+| DOM controls | Inbound | IDs `length`, `digitsCheckbox`, `lowercaseLettersCheckbox`, `uppercaseLettersCheckbox`, `symbolsCheckbox`, `symbolsExtraCheckbox`, `bracketsCheckbox`, and `punctuationCheckbox` | `index.html` and `password-generator.js` jointly | Missing or renamed elements can produce invalid reads or runtime errors; no explicit translation exists |
 | Password output field | Outbound | `#password` input value | `password-generator.js` | The value is updated in place; no persistence or server response is expected |
 | Inline action handlers | Inbound | `generatePassword()` and `copyPassword()` global function names | `password-generator.js` and `index.html` | Renaming without updating markup prevents activation; no fallback is implemented |
 | Clipboard API | Outbound | `navigator.clipboard.writeText()` in secure contexts, with `document.execCommand("copy")` as a fallback | Browser and `copyPassword()` | Clipboard promise rejection falls back to selection and the legacy command; final failure is silent |
@@ -222,7 +222,7 @@ The modern copy flow is asynchronous and falls back to the legacy selection comm
 
 ## ⚙️ Password Character Selection
 
-Character selection is controlled by seven independent switches. Digits, lowercase letters, uppercase letters, and the standard symbols set are checked by default in the HTML; extra symbols, brackets, and other characters are unchecked by default. The requested length is taken from the numeric input's value and used as the loop bound. The repository therefore treats the character constants, checkbox IDs, defaults, and output field ID as a single client-side contract.
+Character selection is controlled by seven independent switches. Digits, lowercase letters, uppercase letters, and the standard symbols set are checked by default in the HTML; extra symbols, brackets, and punctuation are unchecked by default. The requested length is taken from the numeric input's value and used as the loop bound. The repository therefore treats the character constants, checkbox IDs, defaults, and output field ID as a single client-side contract.
 
 ## 🧵 Cross-Cutting Concerns
 
