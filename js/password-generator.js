@@ -53,6 +53,10 @@ function generatePassword() {
 function copyPassword() {
     var copyText = document.getElementById("password");
 
+    copyText.focus();
+    copyText.select();
+    copyText.setSelectionRange(0, copyText.value.length);
+
     if (navigator.clipboard && window.isSecureContext) {
         navigator.clipboard.writeText(copyText.value).catch(function () {
             fallbackCopy(copyText);
