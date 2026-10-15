@@ -5,6 +5,7 @@ var symbols = "?-*%!@#_$/"
 var symbolsExtra = "€¢£¥₦§®©™∑∆µπ"
 var brackets = "[]{}()<>"
 var punctuation = ",|\\'\"+=`~^& .:;"
+var diacritics = "àáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿĀāĂăĄąĆćĈĉĊċČčĎďĐđĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħĨĩĪīĬĭĮįİıĲĳĴĵĶķĸĹĺĻļĽľĿŀŁłŃńŅņŇňŉŊŋŌōŎŏŐőŒœŔŕŖŗŘřŚśŜŝŞşŠšŢţŤťŦŧŨũŪūŬŭŮůŰűŲųŴŵŶŷŸÿŹźŻżŽž"
 
 function generatePassword() {
     var length = $("#length").val();
@@ -38,6 +39,10 @@ function generatePassword() {
 
     if ($("#punctuationCheckbox").is(':checked')) {
         characters += punctuation;
+    }
+
+    if ($("#diacriticsCheckbox").is(':checked')) {
+        characters += diacritics;
     }
 
     var charactersCount = characters.length;
