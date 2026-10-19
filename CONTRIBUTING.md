@@ -94,7 +94,7 @@ This project has no automated test suite. Test manually by:
 
 ## 📋 Code of Conduct
 
-This project follows the [Code of Conduct](docs/Code%20of%20Conduct.md).
+This project follows the [Code of Conduct](./CODE_OF_CONDUCT.md).
 
 ## 🔒 Security
 
