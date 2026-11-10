@@ -6,6 +6,8 @@
 
 A static browser application for generating passwords from selectable character classes and copying the result to the system clipboard.
 
+**Live instance:** https://hmlendea.github.io/password-generator
+
 ## 📑 Table of Contents
 
 - [Demo](#-demo)
